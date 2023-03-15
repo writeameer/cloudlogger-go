@@ -10,7 +10,7 @@ Create the io.Writer:
 
 ```go
 // Define Azure args
-args := &azure.AzureWriterArgs{
+args := &azure.WriterArgs{
     AccountName:   os.Getenv("AZURE_STORAGE_ACCOUNTNAME"),
     ContainerName: os.Getenv("AZURE_STORAGE_CONTAINERNAME"),
     AccountKey:    os.Getenv("AZURE_ACCOUNT_KEY"),
@@ -18,7 +18,7 @@ args := &azure.AzureWriterArgs{
 }
 
 // Create Azure writer
-w := azure.NewAzureWriter(args)
+w := azure.NewWriter(args)
 ```
 
 Start writing to it  !

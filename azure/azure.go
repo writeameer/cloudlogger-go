@@ -13,14 +13,14 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/container"
 )
 
-// AzureWriter is an implementation of io.Writer. The logs.NewAzureWriter(..) func returns
-// an AzureWriter that can be used with standard cmds like fmt.Fprintf() to write logs
-type AzureWriter struct {
+// Writer is an implementation of io.Writer that can be used
+// with standard cmds like fmt.Fprintf() to write logs
+type Writer struct {
 	ctx context.Context
 	w   *appendblob.Client
 }
 
-type AzureWriterArgs struct {
+type WriterArgs struct {
 	// The name of the Azure storage account. Please specify without the FQDN.
 	// For e.g. if your storage account is https://myaccount.blob.core.windows.net, then just  pass in 'myaccount'
 	AccountName string
@@ -35,7 +35,7 @@ type AzureWriterArgs struct {
 	FileName string
 }
 
-func NewAzureWriter(args *AzureWriterArgs) *AzureWriter {
+func NewWriter(args *WriterArgs) *Writer {
 
 	// Setup context
 	ctx := context.Background()
@@ -65,13 +65,13 @@ func NewAzureWriter(args *AzureWriterArgs) *AzureWriter {
 		log.Fatal(err.Error())
 	}
 
-	return &AzureWriter{
+	return &Writer{
 		w:   appendClient,
 		ctx: ctx,
 	}
 
 }
-func (e AzureWriter) Write(data []byte) (int, error) {
+func (e Writer) Write(data []byte) (int, error) {
 
 	tmStamp := fmt.Sprint(time.Now().Format("2006-01-02 15:04:05"))
 	message := fmt.Sprintf("%s  %s", tmStamp, string(data))
