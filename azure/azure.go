@@ -14,7 +14,6 @@ import (
 )
 
 // Writer is an implementation of io.Writer to write to Azure Blob Storage
-
 type BlobStorageWriter struct {
 	ctx context.Context
 	w   *appendblob.Client
