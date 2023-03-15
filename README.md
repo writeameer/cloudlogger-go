@@ -1,6 +1,8 @@
 # Overview
 
-Use`fmt.Printf` write/log directly to cloud endpoints.
+An io.Writer implementation for cloud APIs. Use`fmt.Printf` write/log directly to cloud !
+
+
 
 ## Logging to Azure Blob Storage
 
