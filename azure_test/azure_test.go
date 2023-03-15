@@ -2,13 +2,14 @@ package azure_test
 
 import (
 	"fmt"
+	"github.com/writeameer/cloudlogger-go/azure"
 	"os"
 	"testing"
-
-	"github.com/writeameer/cloudlogger-go/azure"
 )
 
 func TestAzureBlobStorage(t *testing.T) {
+
+	fmt.Printf("The azure account is:%s \n", os.Getenv("AZURE_STORAGE_ACCOUNTNAME"))
 
 	args := &azure.WriterArgs{
 		AccountName:   os.Getenv("AZURE_STORAGE_ACCOUNTNAME"),
