@@ -13,12 +13,14 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/container"
 )
 
-// Writer is an implementation of io.Writer to write to Azure Blob Storage
+// BlobStorageWriter is an implementation of io.Writer to write to Azure Blob Storage
 type BlobStorageWriter struct {
 	ctx context.Context
 	w   *appendblob.Client
 }
 
+// BlobStorageWriterArgs is a struct used to initialize the arguments required
+// to create a BlobStorageWriter
 type BlobStorageWriterArgs struct {
 	// The name of the Azure storage account. Please specify without the FQDN.
 	// For e.g. if your storage account is https://myaccount.blob.core.windows.net, then just  pass in 'myaccount'
