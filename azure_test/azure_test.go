@@ -11,7 +11,7 @@ func TestAzureBlobStorage(t *testing.T) {
 
 	fmt.Printf("The azure account is:%s \n", os.Getenv("AZURE_STORAGE_ACCOUNTNAME"))
 
-	args := &azure.WriterArgs{
+	args := &azure.BlobStorageWriterArgs{
 		AccountName:   os.Getenv("AZURE_STORAGE_ACCOUNTNAME"),
 		ContainerName: os.Getenv("AZURE_STORAGE_CONTAINERNAME"),
 		AccountKey:    os.Getenv("AZURE_ACCOUNT_KEY"),

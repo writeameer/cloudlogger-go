@@ -20,7 +20,7 @@ type BlobStorageWriter struct {
 	w   *appendblob.Client
 }
 
-type WriterArgs struct {
+type BlobStorageWriterArgs struct {
 	// The name of the Azure storage account. Please specify without the FQDN.
 	// For e.g. if your storage account is https://myaccount.blob.core.windows.net, then just  pass in 'myaccount'
 	AccountName string
@@ -35,7 +35,7 @@ type WriterArgs struct {
 	FileName string
 }
 
-func NewBlobStorageWriter(args *WriterArgs) *BlobStorageWriter {
+func NewBlobStorageWriter(args *BlobStorageWriterArgs) *BlobStorageWriter {
 
 	// Setup context
 	ctx := context.Background()
