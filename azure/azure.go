@@ -20,18 +20,33 @@ type AzureWriter struct {
 	w   *appendblob.Client
 }
 
-func NewAzureWriter(accountName string, containerName string, accountKey string, fileName string) *AzureWriter {
+type AzureWriterArgs struct {
+	// The name of the Azure storage account. Please specify without the FQDN.
+	// For e.g. if your storage account is https://myaccount.blob.core.windows.net, then just  pass in 'myaccount'
+	AccountName string
+
+	// The name of an existing blob container you have created in the storage account where you want to write to. For e.g. mycontainer
+	ContainerName string
+
+	// The Azure storage account key that allows you write access to your blob container
+	AccountKey string
+
+	// The name of the file you want to create/append in your blob container
+	FileName string
+}
+
+func NewAzureWriter(args *AzureWriterArgs) *AzureWriter {
 
 	// Setup context
 	ctx := context.Background()
 
 	// Generate container url
-	containerURL := fmt.Sprintf("https://%s.blob.core.windows.net/%s", accountName, containerName)
+	containerURL := fmt.Sprintf("https://%s.blob.core.windows.net/%s", args.AccountName, args.ContainerName)
 
 	// Create credential
-	credential, err := azblob.NewSharedKeyCredential(accountName, accountKey)
+	credential, err := azblob.NewSharedKeyCredential(args.AccountName, args.AccountKey)
 	if err != nil {
-		log.Printf("Could not create shared key for account: %s\n", accountName)
+		log.Printf("Could not create shared key for account: %s\n", args.AccountName)
 		log.Println(err.Error())
 	}
 	// Create a container client with creds and url
@@ -41,7 +56,7 @@ func NewAzureWriter(accountName string, containerName string, accountKey string,
 		log.Println(err.Error())
 	}
 	// Create appendClient from container client
-	appendClient := containerClient.NewAppendBlobClient(fileName)
+	appendClient := containerClient.NewAppendBlobClient(args.FileName)
 
 	// Create file if not exists
 	_, err = appendClient.Create(ctx, nil)

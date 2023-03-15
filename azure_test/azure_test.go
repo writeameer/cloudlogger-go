@@ -10,12 +10,14 @@ import (
 
 func TestAzureBlobStorage(t *testing.T) {
 
-	accountName := os.Getenv("AZURE_STORAGE_ACCOUNTNAME")
-	containerName := os.Getenv("AZURE_STORAGE_CONTAINERNAME")
-	accountKey := os.Getenv("AZURE_ACCOUNT_KEY")
-	fileName := "test.log"
+	args := &azure.AzureWriterArgs{
+		AccountName:   os.Getenv("AZURE_STORAGE_ACCOUNTNAME"),
+		ContainerName: os.Getenv("AZURE_STORAGE_CONTAINERNAME"),
+		AccountKey:    os.Getenv("AZURE_ACCOUNT_KEY"),
+		FileName:      "test.log",
+	}
 
-	w := azure.NewAzureWriter(accountName, containerName, accountKey, fileName)
+	w := azure.NewAzureWriter(args)
 
 	for i := 1; i < 5; i++ {
 		_, err := fmt.Fprintf(w, "%d. This is a test from cloudlogger !\n", i)
