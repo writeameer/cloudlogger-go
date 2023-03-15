@@ -8,7 +8,7 @@ import (
 	"github.com/writeameer/cloudlogger-go/azure"
 )
 
-func TestLogtoAzureBlobStorage(t *testing.T) {
+func TestAzureBlobStorage(t *testing.T) {
 
 	accountName := os.Getenv("AZURE_STORAGE_ACCOUNTNAME")
 	containerName := os.Getenv("AZURE_STORAGE_CONTAINERNAME")
@@ -17,5 +17,11 @@ func TestLogtoAzureBlobStorage(t *testing.T) {
 
 	w := azure.NewAzureWriter(accountName, containerName, accountKey, fileName)
 
-	fmt.Fprintf(w, "This is a test from cloudlogger !")
+	for i := 1; i < 5; i++ {
+		_, err := fmt.Fprintf(w, "%d. This is a test from cloudlogger !\n", i)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+	}
+
 }

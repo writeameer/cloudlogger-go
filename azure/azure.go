@@ -25,7 +25,7 @@ func NewAzureWriter(accountName string, containerName string, accountKey string,
 	// Setup context
 	ctx := context.Background()
 
-	// Generate containerl url
+	// Generate container url
 	containerURL := fmt.Sprintf("https://%s.blob.core.windows.net/%s", accountName, containerName)
 
 	// Create credential
@@ -34,7 +34,7 @@ func NewAzureWriter(accountName string, containerName string, accountKey string,
 		log.Printf("Could not create shared key for account: %s\n", accountName)
 		log.Println(err.Error())
 	}
-	// Create an container client with creds and url
+	// Create a container client with creds and url
 	containerClient, err := container.NewClientWithSharedKeyCredential(containerURL, credential, nil)
 	if err != nil {
 		log.Printf("Could not create container client key for url: %s\n", containerURL)
