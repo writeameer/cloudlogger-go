@@ -11,6 +11,13 @@ Create the io.Writer:
 ```go
 
 // Define credentials
+import (
+	"fmt"
+	"os"
+
+	"github.com/writeameer/cloudlogger-go/azure"
+)
+
 accountName := os.Getenv("AZURE_STORAGE_ACCOUNTNAME")
 containerName := os.Getenv("AZURE_STORAGE_CONTAINERNAME")
 accountKey := os.Getenv("AZURE_ACCOUNT_KEY")
