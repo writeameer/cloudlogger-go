@@ -13,9 +13,9 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/container"
 )
 
-// Writer is an implementation of io.Writer that can be used
-// with standard cmds like fmt.Fprintf() to write logs
-type Writer struct {
+// Writer is an implementation of io.Writer to write to Azure Blob Storage
+
+type BlobStorageWriter struct {
 	ctx context.Context
 	w   *appendblob.Client
 }
@@ -35,7 +35,7 @@ type WriterArgs struct {
 	FileName string
 }
 
-func NewWriter(args *WriterArgs) *Writer {
+func NewBlobStorageWriter(args *WriterArgs) *BlobStorageWriter {
 
 	// Setup context
 	ctx := context.Background()
@@ -65,13 +65,13 @@ func NewWriter(args *WriterArgs) *Writer {
 		log.Fatal(err.Error())
 	}
 
-	return &Writer{
+	return &BlobStorageWriter{
 		w:   appendClient,
 		ctx: ctx,
 	}
 
 }
-func (e Writer) Write(data []byte) (int, error) {
+func (e BlobStorageWriter) Write(data []byte) (int, error) {
 
 	tmStamp := fmt.Sprint(time.Now().Format("2006-01-02 15:04:05"))
 	message := fmt.Sprintf("%s  %s", tmStamp, string(data))

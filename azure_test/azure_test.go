@@ -18,7 +18,7 @@ func TestAzureBlobStorage(t *testing.T) {
 		FileName:      "test.log",
 	}
 
-	w := azure.NewWriter(args)
+	w := azure.NewBlobStorageWriter(args)
 
 	for i := 1; i < 5; i++ {
 		_, err := fmt.Fprintf(w, "%d. This is a test from cloudlogger !\n", i)
